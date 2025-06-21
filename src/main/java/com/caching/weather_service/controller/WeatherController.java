@@ -2,6 +2,7 @@ package com.caching.weather_service.controller;
 
 import com.caching.weather_service.entity.Weather;
 import com.caching.weather_service.repository.WeatherRepository;
+import com.caching.weather_service.service.CacheInspectionService;
 import com.caching.weather_service.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,9 @@ public class WeatherController {
     @Autowired
     private WeatherRepository weatherRepository;
 
+    @Autowired
+    CacheInspectionService cacheInspectionService;
+
     @GetMapping
     public String getWeather(@RequestParam String city){
         String weatherByCity = weatherService.getWeatherByCity(city);
@@ -37,5 +41,10 @@ public class WeatherController {
     @GetMapping("/all")
     public List<Weather> getAllWeather(){
         return weatherRepository.findAll();
+    }
+
+    @GetMapping("/cacheData")
+    public void getCacheData(){
+        cacheInspectionService.printCacheContents("weather");
     }
 }
