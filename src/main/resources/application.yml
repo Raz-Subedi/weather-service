@@ -10,3 +10,10 @@ spring:
       ddl-auto: update
     show-sql: true
 
+  cache:
+    type: redis
+    cache-names: weather
+  data:
+    redis:
+      port: 6379
+      host: localhost
